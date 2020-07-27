@@ -23,6 +23,7 @@ public class MathModel {
       private ArrayList<Subject> Ss;// DS Mon hoc
       private ArrayList<Course> Cs;  // DS khoa hoc
       private ArrayList<Room> Rs;   // DS phong hoc
+      private ArrayList<Class> Ls;  //Lop hoc
       private Calendar Ca;
       
       private GRBVar[][][] x; // Bien quyet dinh
@@ -35,7 +36,8 @@ public class MathModel {
     	  this.Ts=new ArrayList<Teacher>();
     	  this.Cs=new ArrayList<Course>();
     	  this.Rs=new ArrayList<Room>();
-    	  
+    	  this.Ss=new ArrayList<Subject>();
+    	  this.Ls=new ArrayList<Class>();
     	  /////////////////////////// data Teacher
     	  String s = inFile.nextLine(); // Doc dong dau tien Teacher
      	  String[] tokens = s.split("\t");
@@ -47,7 +49,7 @@ public class MathModel {
      	  Teacher t=new Teacher(tokens[0]);
      	  Ts.add(t);
      	  	for(int j=1;j<tokens.length;j++)
-     		  t.addAvailable(Integer.parseInt(tokens[i]));
+     		  t.addAvailable(Integer.parseInt(tokens[j]));
      	  }
      	  //////////////////////////// Data mon hoc
      	  s = inFile.nextLine(); //
@@ -63,7 +65,15 @@ public class MathModel {
    	      }
    	      //////////////////////////// Data Class
    	       s = inFile.nextLine(); // Doc dong dau tien
-   	       
+   	       tokens = s.split("\t");
+  	       this.nL=Integer.parseInt(tokens[0]);
+  	       Class cl;
+  	       for (int i = 0; i < this.nL; i++) {
+  	    	 s = inFile.nextLine(); // Doc dong dau tien course
+      	     tokens = s.split("\t");
+      	     cl=new Class(tokens[0]);
+      	     Ls.add(cl);
+  	       }
      	  //////////////////////////// data course
      	   s = inFile.nextLine(); // Doc dong dau tien course
      	   Course course;
@@ -85,7 +95,7 @@ public class MathModel {
     	   Room room;
     	   tokens=s.split("\t");
     	   this.nR=Integer.parseInt(tokens[0]);
-    	   for (int i = 0; i < this.nL; i++) 
+    	   for (int i = 0; i < this.nR; i++) 
     	   {
     		   s = inFile.nextLine();
     		   tokens=s.split("\t");
@@ -181,7 +191,7 @@ public class MathModel {
   					if(checkAvailable(i,j,t))
   					func.addTerm(1.0, x[i][j][t]);
     	  
-    		model.setObjective(func, GRB.MINIMIZE);
+    		model.setObjective(func, GRB.MAXIMIZE);
     		model.optimize();
       }
 }

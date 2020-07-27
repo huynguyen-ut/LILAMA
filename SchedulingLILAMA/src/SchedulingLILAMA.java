@@ -8,7 +8,7 @@ public class SchedulingLILAMA {
 		// TODO Auto-generated method stub
        try {
 		@SuppressWarnings("unused")
-		MathModel mathmodel=new MathModel("data/test_1",0);
+		MathModel mathmodel=new MathModel("e:/test",0);
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
