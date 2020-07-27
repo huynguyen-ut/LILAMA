@@ -118,7 +118,7 @@ public class MathModel {
     		  time_=6;
     		  else
     			  if(time==1)
-    				  time_=12;
+    				  time_=12; 
     	  this.readData(fileName);
     	  GRBEnv env = new GRBEnv();
   		  model = new GRBModel(env);
