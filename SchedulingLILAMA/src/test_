@@ -10,9 +10,12 @@ m3
 L1	0	1	1	0	0	0         // Lop đang rảnh các ngay 2	4
 L2	0	1	1	0	0	0 
 2                					// 2 hoc phan(course)
-G1	m1	0	1	1	0	0	0 	    //giao vien g1 day mon m1 co the day hoc vao thu 3 thu 5
+G1	m1	0	1	1	0	0	0 	    //giao vien g1 day mon m1 loai phong co the day hoc vao thu 3 thu 5
 G2	m3	0	1	1	0	0	0         
 3               				 // 3 phong hoc
-p1	0	1	1	0	0	0         // phong 1 ranh thu 2,3
+p1	0	1	1	0	0	0         // phong 1, loai x1 ranh thu 2,3
 p2	0	1	1	0	0	0     
 p3	0	1	1	0	0	0    
+
+0	1	1	0	1	0	1	     // mon 1, co the hoc cac phong 2,3,5,7
+1	0	1	0	1	0	1		// mon 2, co the hoc cac phong 1,3,5,7
