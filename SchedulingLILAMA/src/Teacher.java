@@ -4,6 +4,7 @@ public class Teacher {
        String id; // 
        ArrayList<Course> Cs;
        Calendar Ca;
+       
        public Teacher() {
     	   
        }
