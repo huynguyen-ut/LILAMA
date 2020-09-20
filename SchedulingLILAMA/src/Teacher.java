@@ -4,6 +4,9 @@ public class Teacher {
        String id; // 
        ArrayList<Course> Cs;
        Calendar Ca;
+       public Teacher() {
+    	   
+       }
        public Teacher(String id)  {
     	this.id=id;
     	this.Ca=new Calendar();
