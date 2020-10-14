@@ -54,6 +54,7 @@ public class Class {
       public Class(Integer id) {
     	  this.id=id;
     	  schedules=new ArrayList<Schedule>();
+    	  
     	  reSchedule=new ArrayList<Schedule>();
       }
       public Class() {
