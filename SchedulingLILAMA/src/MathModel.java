@@ -46,7 +46,7 @@ public class MathModel {
      	  s = inFile.nextLine();
      	  tokens = s.split("\t");
      	
-     	  Teacher t=new Teacher(tokens[0]);
+     	  Teacher t=new Teacher(Integer.parseInt(tokens[0]));
      	  Ts.add(t);
      	  	for(int j=1;j<tokens.length;j++)
      		  t.addAvailable(Integer.parseInt(tokens[j]));
@@ -60,7 +60,7 @@ public class MathModel {
    	      {
    	    	 s = inFile.nextLine();
    	    	 tokens = s.split("\t");
-   	    	 sub=new Subject(tokens[0]);
+   	    	 sub=new Subject(Integer.parseInt(tokens[0]));
    	    	 this.Ss.add(sub);
    	      }
    	      //////////////////////////// Data Class
@@ -71,7 +71,7 @@ public class MathModel {
   	       for (int i = 0; i < this.nL; i++) {
   	    	 s = inFile.nextLine(); // Doc dong dau tien course
       	     tokens = s.split("\t");
-      	     cl=new Class(tokens[0]);
+      	     cl=new Class(Integer.parseInt(tokens[0]));
       	     Ls.add(cl);
   	       }
      	  //////////////////////////// data course
@@ -86,7 +86,7 @@ public class MathModel {
         	   cal=new Calendar();
         	   for(int j=2;j<tokens.length;j++) 
         		   cal.addAvailable(Integer.parseInt(tokens[j]));
-        	   course=new Course(tokens[0],this.findSubject(tokens[1]) ,cal);
+        	   course=new Course(tokens[0],this.findSubject(Integer.parseInt(tokens[1])) ,cal);
         	   this.Cs.add(course);
         	   
      	   }
@@ -136,7 +136,7 @@ public class MathModel {
         this.objective();
   		
       }
-      private Subject findSubject(String id) {
+      private Subject findSubject(int id) {
     	  for(Subject s:this.Ss) {
     		  if(s.getId()==id)
     			  return s;

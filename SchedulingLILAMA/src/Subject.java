@@ -1,14 +1,24 @@
 
 public class Subject {
-       private String id;
-       public Subject(String id) {
+       private Integer id;
+       private String name;
+       public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Subject(Integer id) {
     	   this.setId(id);
        }
+       public Subject() {
+    	   
+       }
 	@SuppressWarnings("unused")
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 }

@@ -1,14 +1,14 @@
 public class Course {
          private String id;
          private Subject sub;
-         private Calendar calendar; // lich hoc
+         private Calendar schedule;
          public Course(String id,Subject sub,Calendar Ns) {
         	 this.id=id;
         	 this.sub=sub;
-        	calendar=Ns;
+        	schedule=Ns;
          }
 		public Calendar getCalendar() {
-			return calendar;
+			return this.schedule;
 		}
 		
 }

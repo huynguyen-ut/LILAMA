@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -9,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -17,7 +15,6 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class FilterData {
@@ -62,86 +59,14 @@ public FilterData(String excelFilePath) throws IOException{
 
        // Get sheet
        Sheet sheetSchedule =workbook.getSheetAt(0);
-     //  Sheet sheetTeacher = workbook.getSheetAt(1);
-    //   Sheet sheetClass =   workbook.getSheetAt(2);
-   //    Sheet sheetSubject = workbook.getSheetAt(3);
+       Sheet sheetTeacher = workbook.getSheetAt(1);
+       Sheet sheetClass =   workbook.getSheetAt(2);
+       Sheet sheetSubject = workbook.getSheetAt(3);
 
-       // Sheet schedule
-       
-       // Get all rows
-       Iterator<Row> iterator = sheetSchedule.iterator();
-       while (iterator.hasNext()) {
-           Row nextRow = iterator.next();
-           if (nextRow.getRowNum() == 0) {
-               // Ignore header
-               continue;
-           }
-
-           // Get all cells
-           Iterator<Cell> cellIterator = nextRow.cellIterator();
-
-           // Read cells and set value for book object
-           
-           Schedule schedule = new Schedule();
-           
-           Date first=new Date();
-           first.setMonth(7);
-           first.setYear(120);
-           first.setDate(3);
-           first.setHours(0);
-           first.setMinutes(0);
-           first.setSeconds(0);
-           
-           Date last=new Date();
-           last.setMonth(1);
-           last.setYear(121);
-           last.setDate(10);
-           last.setHours(0);
-           last.setMinutes(0);
-           last.setSeconds(0);
-           
-           
-           schedule.setFirst(first);
-           schedule.setLast(last);
-           
-           while (cellIterator.hasNext()) {
-               //Read cell
-               Cell cell = cellIterator.next();
-               Object cellValue = getCellValue(cell);
-               if (cellValue == null || cellValue.toString().isEmpty()) {
-                   continue;
-               }
-               // 
-               int columnIndex = cell.getColumnIndex();
-               
-               switch (columnIndex) {
-               /// ID
-               case 0:
-                  schedule.setId(new BigDecimal((double) cellValue).intValue());
-                   break;
-               // Start 
-               case 6:
-                   schedule.setStart(cell.getDateCellValue());
-                   break;
-               // Last
-               case 7:
-                   schedule.setEnd(cell.getDateCellValue());
-                   break;
-               // Day
-               case 8:
-            	  schedule.setDay(new BigDecimal((double) cellValue).intValue());
-                   break;
-               default:
-                   break;
-               }
-
-           }
-           schedule.getScheule();
-           listSchedule.add(schedule);
-       }
+      
          
        // Sheet teacher
-   /*    iterator = sheetTeacher.iterator();
+       Iterator<Row> iterator = sheetTeacher.iterator();
        while (iterator.hasNext()) {
            Row nextRow = iterator.next();
            if (nextRow.getRowNum() == 0) {
@@ -164,11 +89,13 @@ public FilterData(String excelFilePath) throws IOException{
                // Set value for book object
                int columnIndex = cell.getColumnIndex();
                switch (columnIndex) {
+               // id giao vien
                case 0:
-                  // Teacher.setId(new BigDecimal((double) cellValue).intValue());
+                  teacher.setId(new BigDecimal((double) cellValue).intValue());
                    break;
-               case 2:
-                  // teacher.setTitle((String) getCellValue(cell));
+               // Ten giao vien
+               case 1:
+                   teacher.setName((String) getCellValue(cell));
                    break;
               
                default:
@@ -180,7 +107,7 @@ public FilterData(String excelFilePath) throws IOException{
        }
        
        // Sheet Lop
-       iterator = sheetClass.iterator();
+      iterator = sheetClass.iterator();
        while (iterator.hasNext()) {
            Row nextRow = iterator.next();
            if (nextRow.getRowNum() == 0) {
@@ -192,7 +119,7 @@ public FilterData(String excelFilePath) throws IOException{
            Iterator<Cell> cellIterator = nextRow.cellIterator();
 
            // 
-           Teacher teacher = new Teacher();
+           Class lop = new Class();
            while (cellIterator.hasNext()) {
                //Read cell
                Cell cell = cellIterator.next();
@@ -203,11 +130,13 @@ public FilterData(String excelFilePath) throws IOException{
                // Set value for book object
                int columnIndex = cell.getColumnIndex();
                switch (columnIndex) {
+               // id lop
                case 0:
-                  // Teacher.setId(new BigDecimal((double) cellValue).intValue());
+                   lop.setId(new BigDecimal((double) cellValue).intValue());
                    break;
-               case 2:
-                  // teacher.setTitle((String) getCellValue(cell));
+               // ten lop
+               case 1:
+                  lop.setName((String) getCellValue(cell));
                    break;
               
                default:
@@ -215,15 +144,148 @@ public FilterData(String excelFilePath) throws IOException{
                }
 
            }
-           listTeacher.add(teacher);
-       }*/
+           listClass.add(lop);
+       }
        
+       // Sheet mon
+       iterator = sheetSubject.iterator();
+        while (iterator.hasNext()) {
+            Row nextRow = iterator.next();
+            if (nextRow.getRowNum() == 0) {
+                // Ignore header
+                continue;
+            }
+
+            // Get all cells
+            Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+            // 
+            Subject subject = new Subject();
+            while (cellIterator.hasNext()) {
+                //Read cell
+                Cell cell = cellIterator.next();
+                Object cellValue = getCellValue(cell);
+                if (cellValue == null || cellValue.toString().isEmpty()) {
+                    continue;
+                }
+                // Set value for book object
+                int columnIndex = cell.getColumnIndex();
+                switch (columnIndex) {
+                // id lop
+                case 0:
+                   subject.setId(new BigDecimal((double) cellValue).intValue());
+                    break;
+                // ten lop
+                case 1:
+                   subject.setName((String) getCellValue(cell));
+                    break;
+               
+                default:
+                    break;
+                }
+
+            }
+            listSubject.add(subject);
+        }
+       
+        // Sheet schedule
+        
+        // Get all rows
+        iterator = sheetSchedule.iterator();
+        while (iterator.hasNext()) {
+            Row nextRow = iterator.next();
+            if (nextRow.getRowNum() == 0) {
+                // Ignore header
+                continue;
+            }
+
+            // Get all cells
+            Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+            // Read cells and set value for book object
+            
+            Schedule schedule = new Schedule();
+            
+            Date first=new Date();
+            first.setMonth(7);
+            first.setYear(120);
+            first.setDate(3);
+            first.setHours(0);
+            first.setMinutes(0);
+            first.setSeconds(0);
+            
+            Date last=new Date();
+            last.setMonth(1);
+            last.setYear(121);
+            last.setDate(10);
+            last.setHours(0);
+            last.setMinutes(0);
+            last.setSeconds(0);
+            
+            
+            schedule.setFirst(first);
+            schedule.setLast(last);
+            
+            while (cellIterator.hasNext()) {
+                //Read cell
+                Cell cell = cellIterator.next();
+                Object cellValue = getCellValue(cell);
+                if (cellValue == null || cellValue.toString().isEmpty()) {
+                    continue;
+                }
+                // 
+                int columnIndex = cell.getColumnIndex();
+                
+                switch (columnIndex) {
+                /// ID lich hoc
+                case 0:
+                   schedule.setId(new BigDecimal((double) cellValue).intValue());
+                    break;
+                /// id Lop hoc
+                case 1:
+                    schedule.setId_class(new BigDecimal((double) cellValue).intValue());
+             	   break;
+                /// id mon hoc
+                case 2:
+                    schedule.setId_subject(new BigDecimal((double) cellValue).intValue());
+             	   break;
+                /// id thay day
+                case 3:
+                    schedule.setId_teacher(new BigDecimal((double) cellValue).intValue());
+             	   break;
+                // ngay Start 
+                case 4:
+                    schedule.setStart(cell.getDateCellValue());
+                    break;
+                // ngay Last
+                case 5:
+                    schedule.setEnd(cell.getDateCellValue());
+                    break;
+                // ngay hoc
+                case 6:
+             	  schedule.setDay(new BigDecimal((double) cellValue).intValue());
+                    break;
+                default:
+                    break;
+                }
+
+            }
+            schedule.getScheule();
+            this.getClass(schedule.getId_class()).addSchedule(schedule);
+            listSchedule.add(schedule);
+        }
+        
        workbook.close();
        inputStream.close();
 
      
    }
-
+   public Class getClass(int id) {
+	   for(Class c:this.listClass)
+		   if(c.getId()==id)
+			   return c;
+	   return null;
+   }
    // Get Workbook
    private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
        Workbook workbook = null;

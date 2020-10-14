@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Calendar {
-        ArrayList<Node> date;
+       
         ArrayList<Integer> dAvailable;
         public Calendar(){
-        	this.date=new ArrayList<Node>();
+        	
         	this.dAvailable=new ArrayList<Integer>();
         }
         public void addAvailable(int a) {
