@@ -17,5 +17,9 @@ public class Mathmodel2 {
     	  
     	  
       }
+      // constraint 1
       
+      // constraint 2
+      
+      // constraint 3
 }
